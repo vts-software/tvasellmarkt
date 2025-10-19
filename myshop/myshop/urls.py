@@ -7,8 +7,8 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('shop.urls')),  # urls приложения shop
-    # path('users/', include('users.urls')),  # позже подключим urls приложения users
+    path('', include('shop.urls', namespace='shop')),
+    # path('users/', include('users.urls', namespace='users')),  # позже подключим urls приложения users
 ]
 
 

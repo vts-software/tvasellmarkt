@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class Category(models.Model):
     name = models.CharField(max_length=100, unique=True, verbose_name="Название категории")
     slug = models.SlugField(max_length=100, unique=True, verbose_name="URL-идентификатор")
@@ -28,7 +29,7 @@ class Product(models.Model):
         
     def __str__(self):
         return self.name
-    
+  
 
 class ProductImage(models.Model):
     product = models.ForeignKey('Product', on_delete=models.CASCADE, related_name='images')
@@ -37,7 +38,8 @@ class ProductImage(models.Model):
 
     def __str__(self):
         return f"Изображение для {self.product.name}"
-    
+
+
 class Review(models.Model):
     product = models.ForeignKey('Product', on_delete=models.CASCADE, related_name='reviews')
     user = models.ForeignKey('auth.User', on_delete=models.CASCADE)
@@ -51,19 +53,38 @@ class Review(models.Model):
 
     def __str__(self):
         return f"Отзыв от {self.user.username} — {self.rating}★"
-    
+
 
 class Cart(models.Model):
     user = models.ForeignKey('auth.User', on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
+    
+    def add_product(self, product, quantity=1):
+        item, created = CartItem.objects.get_or_create(cart=self, product=product)
+        if not created:
+            item.quantity += quantity
+        else:
+            item.quantity = quantity
+        item.save()
 
+    def remove_product(self, product):
+        try:
+            item = CartItem.objects.get(cart=self, product=product)
+            item.delete()
+        except CartItem.DoesNotExist:
+            pass
+
+    def total_items(self):
+        return sum(item.quantity for item in self.items.all())    
+    
     class Meta:
         verbose_name = "Корзина"
         verbose_name_plural = "Корзины"
 
     def __str__(self):
         return f"Корзина {self.user.username}"
-    
+
+
 class CartItem(models.Model):
     cart = models.ForeignKey('Cart', on_delete=models.CASCADE, related_name='items')
     product = models.ForeignKey('Product', on_delete=models.CASCADE)
@@ -75,7 +96,7 @@ class CartItem(models.Model):
 
     def __str__(self):
         return f"{self.quantity} x {self.product.name} в корзине {self.cart.user.username}"
-    
+  
 
 class Order(models.Model):
     STATUS_CHOICES = [
@@ -97,7 +118,7 @@ class Order(models.Model):
 
     def __str__(self):
         return f"Заказ #{self.id} от {self.user.username}"
-    
+ 
 
 class OrderItem(models.Model):
     order = models.ForeignKey('Order', on_delete=models.CASCADE, related_name='items')

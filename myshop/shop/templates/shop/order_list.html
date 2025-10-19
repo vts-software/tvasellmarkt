@@ -1,0 +1,20 @@
+{% extends "shop/base.html" %}
+{% block content %}
+<main>
+  <h2 class="card-title">Мои заказы</h2>
+  {% if orders %}
+    <div class="grid">
+      {% for order in orders %}
+        <div class="card">
+          <p class="card-text">Заказ №{{ order.id }}</p>
+          <p class="card-text">Сумма: {{ order.total_price }} PLN</p>
+          <p class="card-text">Дата: {{ order.created_at|date:"d.m.Y H:i" }}</p>
+          <a href="{% url 'shop:order_detail' order.id %}" class="btn">Подробнее</a>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p class="card-text">У вас пока нет заказов.</p>
+  {% endif %}
+</main>
+{% endblock %}

@@ -1,20 +1,23 @@
-{% extends 'shop/base.html' %}
-
-{% block title %}Вход{% endblock %}
-
+{% extends "shop/base.html" %}
 {% block content %}
-<h2>Вход</h2>
-
-<form method="post">
-  {% csrf_token %}
-  <div>
-    <label>Имя пользователя:</label>
-    <input type="text" name="username" required>
+<main>
+  <div class="login-card">
+    <h2>Вход</h2>
+    <form method="post">
+      {% csrf_token %}
+      <label for="username">Логин:</label>
+      <input type="text" name="username" id="username" required>
+      <label for="password">Пароль:</label>
+      <input type="password" name="password" id="password" required>
+      <button type="submit" class="btn">Войти</button>
+    </form>
+    {% if messages %}
+      <ul class="messages">
+        {% for message in messages %}
+          <li class="{{ message.tags }}">{{ message }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
   </div>
-  <div>
-    <label>Пароль:</label>
-    <input type="password" name="password" required>
-  </div>
-  <button type="submit">Войти</button>
-</form>
+</main>
 {% endblock %}

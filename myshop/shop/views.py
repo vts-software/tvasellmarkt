@@ -166,7 +166,7 @@ def add_review(request, slug):
 
 def login_view(request):
     if request.user.is_authenticated:
-        return redirect('shop:product_list')
+        return redirect('shop:index')
 
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -175,7 +175,7 @@ def login_view(request):
         if user:
             login(request, user)
             messages.success(request, f"Добро пожаловать, {user.username}!")
-            next_url = request.GET.get('next', 'shop:product_list')
+            next_url = request.GET.get('next', 'shop:index')
             return redirect(next_url)
         else:
             messages.error(request, "Неправильный логин или пароль")
@@ -186,4 +186,4 @@ def login_view(request):
 def logout_view(request):
     logout(request)
     messages.info(request, "Вы вышли из системы")
-    return redirect('shop:product_list')
+    return redirect('shop:index')

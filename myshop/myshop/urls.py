@@ -7,14 +7,11 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('shop.urls', namespace='shop')),
-    # path('users/', include('users.urls', namespace='users')),  # позже подключим urls приложения users
+    path('', include('shop.urls')),
+    path('accounts/', include('django.contrib.auth.urls')),
+    
 ]
 
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
-urlpatterns = [
-    path('admin/', admin.site.urls),
-]

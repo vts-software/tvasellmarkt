@@ -1,15 +1,16 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Product, Category, Cart, Order, Review, OrderItem
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
 
-def product_list(request):
+def index(request):
     """
     Главная страница: выводит список всех товаров.
     """
     products = Product.objects.all()
-    return render(request, 'shop/product_list.html', {'products': products})
+    return render(request, 'shop/index.html', {'products': products})
 
 
 def product_detail(request, slug):
@@ -162,3 +163,27 @@ def add_review(request, slug):
         return redirect('shop:product_detail', slug=slug)
     
     return render(request, 'shop/add_review.html', {'product': product})
+
+def login_view(request):
+    if request.user.is_authenticated:
+        return redirect('shop:product_list')
+
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request, username=username, password=password)
+        if user:
+            login(request, user)
+            messages.success(request, f"Добро пожаловать, {user.username}!")
+            next_url = request.GET.get('next', 'shop:product_list')
+            return redirect(next_url)
+        else:
+            messages.error(request, "Неправильный логин или пароль")
+
+    return render(request, 'shop/login.html')
+
+
+def logout_view(request):
+    logout(request)
+    messages.info(request, "Вы вышли из системы")
+    return redirect('shop:product_list')

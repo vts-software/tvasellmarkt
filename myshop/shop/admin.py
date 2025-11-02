@@ -1,6 +1,10 @@
 from django.contrib import admin
 from shop.models import Category, Product, ProductImage, Review, Cart, CartItem, Order, OrderItem
 
+admin.site.site_header = "TVASellMarkt — Панель администратора"
+admin.site.site_title = "TVASellMarkt Admin"
+admin.site.index_title = "Добро пожаловать в административную панель"
+
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ('name',)

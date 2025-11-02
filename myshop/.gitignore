@@ -1,0 +1,10 @@
+venv/
+.env
+env.py
+__pycache__/
+*.pyc
+.DS_Store
+.idea/
+.vscode/
+*.log
+coverage

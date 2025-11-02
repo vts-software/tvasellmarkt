@@ -1,0 +1,182 @@
+/* Layout containers */
+.nav-container, .footer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+.nav-left, .footer-left {
+    flex: 1;
+    text-align: left;
+}
+
+.nav-center, .footer-center {
+    flex: 1;
+    text-align: center;
+}
+
+.nav-right, .footer-right {
+    flex: 1;
+    text-align: right;
+}
+
+/* Global styles */
+html, body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background: #FDCFFA;
+    color: #4E56C0;
+}
+
+header {
+    background: #9B5DE0;
+    color: #FDCFFA;
+    padding: 15px;
+}
+
+header a, footer a {
+    color: #FDCFFA;
+    text-decoration: none;
+    margin: 0 10px;
+    font-weight: bold;
+}
+
+header a:hover, footer a:hover {
+    color: #D78FEE;
+    text-decoration: underline;
+}
+
+main {
+    padding: 20px;
+    flex: 1;
+}
+
+footer {
+    background: #4E56C0;
+    color: #FDCFFA;
+    text-align: center;
+    padding: 10px;
+    margin-top: auto;
+}
+
+/* Card layout */
+.card {
+    background: #fff;
+    border: 1px solid #D78FEE;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(155, 93, 224, 0.15);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    text-align: center;
+}
+
+.card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 14px rgba(155, 93, 224, 0.25);
+}
+
+.card-title {
+    font-size: 1.4rem;
+    color: #4E56C0;
+    margin-bottom: 10px;
+}
+
+.card-text {
+    font-size: 0.95rem;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.card img {
+    max-width: 100%;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 6px;
+    display: block;
+    margin-bottom: 8px;
+}
+
+/* Buttons */
+button, .btn {
+    background: #9B5DE0;
+    color: #fff;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.2s ease, transform 0.1s ease;
+    text-decoration: none;
+    display: inline-block;
+}
+
+button:hover, .btn:hover {
+    background: #D78FEE;
+    transform: translateY(-2px);
+}
+
+button:active, .btn:active {
+    transform: translateY(0);
+    background: #4E56C0;
+}
+
+.btn.secondary {
+    background: transparent;
+    color: #333;
+    border: 1px solid #D78FEE;
+    margin-left: 8px;
+}
+
+/* Grid layout */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 16px;
+}
+
+/* Login form */
+.login-card {
+    max-width: 400px;
+    margin: 0 auto;
+    background: #fff;
+    border: 1px solid #D78FEE;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(155, 93, 224, 0.15);
+    text-align: left;
+}
+
+.login-card h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #4E56C0;
+}
+
+.login-card label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: bold;
+    color: #4E56C0;
+}
+
+.login-card input[type="text"],
+.login-card input[type="password"] {
+    width: 100%;
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    margin-bottom: 16px;
+    font-size: 0.95rem;
+}
+
+.login-card button {
+    width: 100%;
+}

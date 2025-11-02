@@ -1,0 +1,16 @@
+{% extends "shop/base.html" %}
+{% block content %}
+<main>
+  <h2 class="card-title">Каталог товаров</h2>
+  <div class="grid">
+    {% for product in products %}
+      <div class="card">
+        <h3 class="card-title">{{ product.name }}</h3>
+        <p class="card-text">{{ product.description|truncatewords:15 }}</p>
+        <p class="card-text"><strong>{{ product.price }} PLN</strong></p>
+        <a href="{% url 'shop:product_detail' product.slug %}" class="btn">Подробнее</a>
+      </div>
+    {% endfor %}
+  </div>
+</main>
+{% endblock %}
